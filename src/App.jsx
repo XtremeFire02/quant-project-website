@@ -1,4 +1,6 @@
-﻿const iconPaths = {
+﻿import { useEffect, useRef, useState } from 'react';
+
+const iconPaths = {
   github:
     'M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.73c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.93.86.09-.67.35-1.12.64-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.81c0 .27.18.59.69.49A10.09 10.09 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z',
   mail:
@@ -47,7 +49,7 @@ const educationItems = [
     period: 'Expected 2027',
     highlights: [
       'Relevant coursework includes probability, linear algebra, multivariable calculus, statistical learning, time series analysis, data structures and algorithms, real analysis, and abstract algebra.',
-      'Intended specialisation in pure mathematics with additional interest in quantitative finance, market microstructure, statistical modelling, and algorithmic trading.',
+      'Intended specialisation in pure mathematics with additional interest in statistical modelling, pricing, risk, quantitative strategy, and actuarial applications.',
     ],
   },
   {
@@ -159,7 +161,7 @@ const skillGroups = [
   },
 ];
 
-const profileHighlights = ['Mathematics', 'Quant Research', 'Trading Systems', 'Topology'];
+const profileHighlights = ['Mathematics', 'Pricing & Risk', 'Quantitative Strategy', 'Statistics'];
 
 const portraitImagePath = '/portrait.jpg';
 
@@ -177,7 +179,7 @@ const externalLinks = [
   },
   {
     title: 'Quant Framework Repo',
-    description: 'Crypto signal research and backtesting framework.',
+    description: 'A research framework showing quantitative modelling and backtesting workflow.',
     href: 'https://github.com/XtremeFire02/Quantitative-Framework-Version-1',
     icon: 'folder',
     cta: 'Open repository',
@@ -313,7 +315,7 @@ const PortraitCard = () => (
       <p className="text-base font-medium uppercase tracking-[0.2em] text-slate-400">Profile</p>
       <h2 className="mt-3 text-3xl font-semibold xl:text-[2rem]">Nicholas Low Ying Ting</h2>
       <p className="mt-4 text-base leading-8 text-slate-300 xl:text-lg xl:leading-9">
-        Mathematics and Statistics student focused on quant research, trading systems, and mathematically rigorous work.
+        Mathematics and Statistics student interested in pricing, risk, strategy, and mathematically rigorous quantitative work.
       </p>
     </div>
   </div>
@@ -406,10 +408,107 @@ const ExternalLinkCard = ({ title, description, href, icon, cta }) => {
 };
 
 export default function App() {
+  const mobileNavRef = useRef(null);
+  const [mobileNavIndicators, setMobileNavIndicators] = useState({
+    canScrollLeft: false,
+    canScrollRight: false,
+  });
+
+  useEffect(() => {
+    const syncMobileNavIndicators = () => {
+      const navElement = mobileNavRef.current;
+
+      if (!navElement) {
+        return;
+      }
+
+      const maxScrollLeft = navElement.scrollWidth - navElement.clientWidth;
+
+      setMobileNavIndicators({
+        canScrollLeft: navElement.scrollLeft > 8,
+        canScrollRight: maxScrollLeft - navElement.scrollLeft > 8,
+      });
+    };
+
+    syncMobileNavIndicators();
+
+    const navElement = mobileNavRef.current;
+
+    if (!navElement) {
+      return undefined;
+    }
+
+    navElement.addEventListener('scroll', syncMobileNavIndicators, { passive: true });
+    window.addEventListener('resize', syncMobileNavIndicators);
+
+    return () => {
+      navElement.removeEventListener('scroll', syncMobileNavIndicators);
+      window.removeEventListener('resize', syncMobileNavIndicators);
+    };
+  }, []);
+
+  const scrollMobileNav = (direction) => {
+    const navElement = mobileNavRef.current;
+
+    if (!navElement) {
+      return;
+    }
+
+    navElement.scrollBy({
+      left: direction === 'left' ? -220 : 220,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <main className="min-h-screen bg-[linear-gradient(180deg,#eef2ff_0%,#f8fafc_16%,#f8fafc_100%)] text-slate-900">
       <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/65 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 md:px-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mx-auto max-w-7xl px-4 py-4 md:px-8 lg:hidden">
+          <div className="relative">
+            <div
+              ref={mobileNavRef}
+              className="flex items-center gap-3 overflow-x-auto whitespace-nowrap pr-12 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            >
+              <a href="#top" className="shrink-0 pr-1 text-lg font-semibold tracking-tight text-slate-950">
+                Nicholas Low Ying Ting
+              </a>
+              {primaryNav.map((item) => (
+                <div key={item.label} className="shrink-0">
+                  <NavChip href={item.href} icon={item.icon} label={item.label} />
+                </div>
+              ))}
+              {profileShortcuts.map((item) => (
+                <div key={item.label} className="shrink-0">
+                  <ProfileChip href={item.href} icon={item.icon} label={item.label} external={item.external} />
+                </div>
+              ))}
+            </div>
+
+            {mobileNavIndicators.canScrollLeft ? (
+              <button
+                type="button"
+                aria-label="Scroll navigation left"
+                onClick={() => scrollMobileNav('left')}
+                className="absolute left-0 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/90 text-slate-700 shadow-[0_12px_28px_-16px_rgba(15,23,42,0.4)] backdrop-blur-md"
+              >
+                <Icon name="arrowRight" size={16} className="rotate-180" />
+              </button>
+            ) : null}
+
+            {mobileNavIndicators.canScrollRight ? (
+              <button
+                type="button"
+                aria-label="Scroll navigation right"
+                onClick={() => scrollMobileNav('right')}
+                className="absolute right-0 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/90 text-slate-700 shadow-[0_12px_28px_-16px_rgba(15,23,42,0.4)] backdrop-blur-md"
+              >
+                <Icon name="arrowRight" size={16} />
+              </button>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="mx-auto hidden max-w-7xl items-center justify-between gap-4 px-6 py-5 md:px-8 lg:flex">
           <a href="#top" className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">
             Nicholas Low Ying Ting
           </a>
@@ -430,13 +529,13 @@ export default function App() {
           <div className="max-w-4xl">
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-5 py-2.5 text-base font-medium text-slate-700 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.35)] backdrop-blur-md">
               <Icon name="spark" size={18} />
-              Quant research · mathematics · trading systems
+              Quantitative work · pricing · risk · strategy
             </div>
             <h1 className="max-w-5xl text-6xl font-semibold tracking-tight text-slate-950 md:text-7xl xl:text-[5.6rem] xl:leading-[1.02]">
-              Mathematics, markets, and technical work.
+              Mathematics for quantitative roles.
             </h1>
             <p className="mt-8 max-w-4xl text-xl leading-9 text-slate-600 xl:text-[1.4rem] xl:leading-10">
-              NUS Mathematics and Statistics student building toward quant research and trading.
+              NUS Mathematics and Statistics student aiming at pricing, risk, strategy, actuarial, and broader quantitative roles.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <a
@@ -478,8 +577,8 @@ export default function App() {
       <Section
         id="education"
         eyebrow="Education"
-        title="Mathematics first. Finance close behind."
-        description="Rigorous training with a growing focus on quant finance."
+        title="Strong mathematical training for quantitative work."
+        description="Built on probability, statistics, modelling, and proof-based thinking."
       >
         <div className="grid gap-6 lg:grid-cols-2">
           {educationItems.map((item) => (
@@ -497,8 +596,8 @@ export default function App() {
       <Section
         id="experience"
         eyebrow="Experience"
-        title="Research experience in markets and mathematics."
-        description="Quant work, research structure, and technical rigor."
+        title="Quantitative experience across research and analysis."
+        description="Research structure, modelling, and technical rigor."
       >
         <div className="grid gap-6 lg:grid-cols-2">
           {experienceItems.map((item) => (
@@ -517,7 +616,7 @@ export default function App() {
         id="projects"
         eyebrow="Projects"
         title="Selected technical work."
-        description="Quant systems, DeFi, and mathematical finance."
+        description="Quantitative modelling, systems work, and mathematical applications."
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {projectItems.map((project) => (
@@ -597,7 +696,7 @@ export default function App() {
         id="skills"
         eyebrow="Skills"
         title="Core tools and areas."
-        description="Programming, quant methods, and markets."
+        description="Programming, quantitative methods, and applied modelling."
       >
         <div className="grid gap-6 md:grid-cols-2">
           {skillGroups.map((group) => (
@@ -629,12 +728,12 @@ export default function App() {
       <Section
         id="contact"
         eyebrow="Contact"
-        title="Open to quant research and technical roles."
+        title="Open to quantitative roles across pricing, risk, strategy, and analytics."
         description="If the fit is strong, reach out."
       >
         <div className="rounded-[2rem] bg-[linear-gradient(145deg,#0f172a,#1e293b)] p-9 text-white shadow-[0_30px_90px_-40px_rgba(15,23,42,0.55)] md:p-12">
           <p className="max-w-4xl text-lg leading-9 text-slate-300 xl:text-xl xl:leading-10">
-            I work best where mathematics, markets, and disciplined engineering meet.
+            I work best where mathematics, statistics, and disciplined technical thinking meet real decision-making.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <a
