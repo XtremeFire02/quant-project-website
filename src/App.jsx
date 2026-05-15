@@ -35,6 +35,7 @@ const primaryNav = [
 
 const profileShortcuts = [
   { label: 'GitHub', href: 'https://github.com/XtremeFire02', icon: 'github', external: true },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nicholas-low-a0252426a/', icon: 'linkedin', external: true },
   { label: 'Email', href: 'mailto:nickylow2002@gmail.com', icon: 'mail' },
 ];
 
@@ -221,9 +222,10 @@ const externalLinks = [
   },
   {
     title: 'LinkedIn',
-    description: 'Resume includes a LinkedIn placeholder, so this slot is ready once the final profile URL is available.',
+    description: 'Professional profile with education, experience, and project history.',
+    href: 'https://www.linkedin.com/in/nicholas-low-a0252426a/',
     icon: 'linkedin',
-    cta: 'Add LinkedIn URL',
+    cta: 'Open LinkedIn',
   },
 ];
 
@@ -261,7 +263,7 @@ function runSmokeTests() {
   });
 
   console.assert(primaryNav.length === 6, 'Expected 6 primary nav items');
-  console.assert(profileShortcuts.length === 2, 'Expected 2 profile shortcuts');
+  console.assert(profileShortcuts.length === 3, 'Expected 3 profile shortcuts');
   console.assert(educationItems.length === 2, 'Expected 2 education items');
   console.assert(experienceItems.length === 2, 'Expected 2 experience items');
   console.assert(projectItems.length === 3, 'Expected 3 project items');
@@ -629,7 +631,7 @@ export default function App() {
         id="links"
         eyebrow="External Links"
         title="Repositories and contact points in one place."
-        description="The site now points directly to the projects mentioned in the resume, with a placeholder left for the final LinkedIn profile URL."
+        description="The site now points directly to your main profiles, repositories, and contact channels."
       >
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {externalLinks.map((link) => (
