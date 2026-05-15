@@ -264,14 +264,48 @@ if (typeof window !== 'undefined') {
   runSmokeTests();
 }
 
+function useInView(threshold = 0.08) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function FadeUp({ children, delay = 0, className = '' }) {
+  const [ref, visible] = useInView();
+  return (
+    <div
+      ref={ref}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
 const Section = ({ id, eyebrow, title, description, children }) => (
   <section id={id} className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-20">
-    <div>
+    <FadeUp>
       <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">{eyebrow}</p>
       <h2 className="max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl md:leading-[1.04]">{title}</h2>
       {description ? <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{description}</p> : null}
-      <div className="mt-8 md:mt-9">{children}</div>
-    </div>
+    </FadeUp>
+    <div className="mt-8 md:mt-9">{children}</div>
   </section>
 );
 
@@ -545,7 +579,7 @@ export default function App() {
       <header id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.22),_transparent_34%),radial-gradient(circle_at_78%_24%,_rgba(14,165,233,0.14),_transparent_26%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.1),_transparent_26%)]" />
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 md:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:py-24">
-          <div className="max-w-4xl">
+          <FadeUp className="max-w-4xl">
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-5 py-2.5 text-base font-medium text-slate-700 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.35)] backdrop-blur-md">
               <Icon name="spark" size={18} />
               Quantitative work · pricing · risk · strategy
@@ -585,11 +619,11 @@ export default function App() {
                 </a>
               </p>
             </div>
-          </div>
+          </FadeUp>
 
-          <div>
+          <FadeUp delay={150}>
             <PortraitCard />
-          </div>
+          </FadeUp>
         </div>
       </header>
 
@@ -600,14 +634,15 @@ export default function App() {
         description="Built on probability, statistics, modelling, and proof-based thinking."
       >
         <div className="grid gap-6 lg:grid-cols-2">
-          {educationItems.map((item) => (
-            <DetailCard
-              key={item.school}
-              title={item.school}
-              subtitle={`${item.programme} · ${item.location}`}
-              meta={item.period}
-              items={item.highlights}
-            />
+          {educationItems.map((item, i) => (
+            <FadeUp key={item.school} delay={i * 120}>
+              <DetailCard
+                title={item.school}
+                subtitle={`${item.programme} · ${item.location}`}
+                meta={item.period}
+                items={item.highlights}
+              />
+            </FadeUp>
           ))}
         </div>
       </Section>
@@ -619,14 +654,15 @@ export default function App() {
         description="Research structure, modelling, and technical rigor."
       >
         <div className="grid gap-6 lg:grid-cols-2">
-          {experienceItems.map((item) => (
-            <DetailCard
-              key={item.role}
-              title={item.role}
-              subtitle={`${item.organisation} · ${item.location}`}
-              meta={item.period}
-              items={item.bullets}
-            />
+          {experienceItems.map((item, i) => (
+            <FadeUp key={item.role} delay={i * 120}>
+              <DetailCard
+                title={item.role}
+                subtitle={`${item.organisation} · ${item.location}`}
+                meta={item.period}
+                items={item.bullets}
+              />
+            </FadeUp>
           ))}
         </div>
       </Section>
@@ -638,39 +674,45 @@ export default function App() {
         description="Quantitative modelling, systems work, and mathematical applications."
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projectItems.map((project) => (
-            <ProjectCard key={project.title} {...project} />
+          {projectItems.map((project, i) => (
+            <FadeUp key={project.title} delay={i * 120}>
+              <ProjectCard {...project} />
+            </FadeUp>
           ))}
         </div>
         <div className="mt-8 grid gap-6 xl:grid-cols-[0.42fr_0.58fr]">
-          <div className="rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
-            <div>
-              <h3 className="text-2xl font-semibold text-slate-950">Persistent Homology PDF Preview</h3>
-              <p className="mt-2 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
-                Preview the write-up here or open the full PDF.
-              </p>
+          <FadeUp>
+            <div className="rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
+              <div>
+                <h3 className="text-2xl font-semibold text-slate-950">Persistent Homology PDF Preview</h3>
+                <p className="mt-2 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
+                  Preview the write-up here or open the full PDF.
+                </p>
+              </div>
+              <div className="mt-6 space-y-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
+                <p>Topology methods applied to financial time series.</p>
+                <p>Useful for readers who want the full write-up without leaving the site immediately.</p>
+              </div>
+              <a
+                href={topologyPdfPath}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-7 inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 py-4 text-base font-semibold text-white transition hover:bg-slate-800"
+              >
+                Open full PDF
+                <Icon name="external" size={18} />
+              </a>
             </div>
-            <div className="mt-6 space-y-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
-              <p>Topology methods applied to financial time series.</p>
-              <p>Useful for readers who want the full write-up without leaving the site immediately.</p>
+          </FadeUp>
+          <FadeUp delay={120}>
+            <div className="rounded-[2rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-6">
+              <iframe
+                title="Persistent Homology for Financial Time Series PDF preview"
+                src={`${topologyPdfPath}#view=FitH`}
+                className="h-[620px] w-full rounded-[1.5rem] border border-slate-200 lg:h-[720px]"
+              />
             </div>
-            <a
-              href={topologyPdfPath}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-7 inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 py-4 text-base font-semibold text-white transition hover:bg-slate-800"
-            >
-              Open full PDF
-              <Icon name="external" size={18} />
-            </a>
-          </div>
-          <div className="rounded-[2rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-6">
-            <iframe
-              title="Persistent Homology for Financial Time Series PDF preview"
-              src={`${topologyPdfPath}#view=FitH`}
-              className="h-[620px] w-full rounded-[1.5rem] border border-slate-200 lg:h-[720px]"
-            />
-          </div>
+          </FadeUp>
         </div>
       </Section>
 
@@ -681,14 +723,15 @@ export default function App() {
         description="Small teams, organisation, and initiative."
       >
         <div className="grid gap-6 lg:grid-cols-2">
-          {leadershipItems.map((item) => (
-            <DetailCard
-              key={item.title}
-              title={item.title}
-              subtitle={item.organisation}
-              meta="Leadership"
-              items={item.bullets}
-            />
+          {leadershipItems.map((item, i) => (
+            <FadeUp key={item.title} delay={i * 120}>
+              <DetailCard
+                title={item.title}
+                subtitle={item.organisation}
+                meta="Leadership"
+                items={item.bullets}
+              />
+            </FadeUp>
           ))}
         </div>
       </Section>
@@ -699,16 +742,18 @@ export default function App() {
         title="Selected results."
         description="Competition and hackathon outcomes."
       >
-        <div className="rounded-[2rem] border border-white/70 bg-white/78 p-9 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-10">
-          <ul className="space-y-5">
-            {awardItems.map((item) => (
-              <li key={item} className="flex gap-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
-                <span className="mt-2.5 h-3 w-3 shrink-0 rounded-full bg-slate-950" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <FadeUp>
+          <div className="rounded-[2rem] border border-white/70 bg-white/78 p-9 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-10">
+            <ul className="space-y-5">
+              {awardItems.map((item) => (
+                <li key={item} className="flex gap-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
+                  <span className="mt-2.5 h-3 w-3 shrink-0 rounded-full bg-slate-950" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </FadeUp>
       </Section>
 
       <Section
@@ -718,15 +763,17 @@ export default function App() {
         description="Programming, quantitative methods, and applied modelling."
       >
         <div className="grid gap-6 md:grid-cols-2">
-          {skillGroups.map((group) => (
-            <div key={group.label} className="rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
-              <h3 className="text-2xl font-semibold text-slate-950">{group.label}</h3>
-              <div className="mt-5 flex flex-wrap gap-3.5">
-                {group.items.map((item) => (
-                  <Pill key={`${group.label}-${item}`}>{item}</Pill>
-                ))}
+          {skillGroups.map((group, i) => (
+            <FadeUp key={group.label} delay={i * 100}>
+              <div className="rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
+                <h3 className="text-2xl font-semibold text-slate-950">{group.label}</h3>
+                <div className="mt-5 flex flex-wrap gap-3.5">
+                  {group.items.map((item) => (
+                    <Pill key={`${group.label}-${item}`}>{item}</Pill>
+                  ))}
+                </div>
               </div>
-            </div>
+            </FadeUp>
           ))}
         </div>
       </Section>
@@ -738,8 +785,10 @@ export default function App() {
         description="Profiles, repos, and contact."
       >
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {externalLinks.map((link) => (
-            <ExternalLinkCard key={link.title} {...link} />
+          {externalLinks.map((link, i) => (
+            <FadeUp key={link.title} delay={i * 80}>
+              <ExternalLinkCard {...link} />
+            </FadeUp>
           ))}
         </div>
       </Section>
@@ -750,29 +799,31 @@ export default function App() {
         title="Open to quantitative roles across pricing, risk, strategy, and analytics."
         description="If the fit is strong, reach out."
       >
-        <div className="rounded-[2rem] bg-[linear-gradient(145deg,#0f172a,#1e293b)] p-9 text-white shadow-[0_30px_90px_-40px_rgba(15,23,42,0.55)] md:p-12">
-          <p className="max-w-4xl text-lg leading-9 text-slate-300 xl:text-xl xl:leading-10">
-            I work best where mathematics, statistics, and disciplined technical thinking meet real decision-making.
-          </p>
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="mailto:nickylow2002@gmail.com"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-4 text-base font-semibold text-slate-950 transition hover:bg-slate-200"
-            >
-              Email me
-              <Icon name="mail" size={20} />
-            </a>
-            <a
-              href="https://github.com/XtremeFire02"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 px-7 py-4 text-base font-semibold text-white transition hover:bg-white/10"
-            >
-              Visit GitHub
-              <Icon name="github" size={20} />
-            </a>
+        <FadeUp>
+          <div className="rounded-[2rem] bg-[linear-gradient(145deg,#0f172a,#1e293b)] p-9 text-white shadow-[0_30px_90px_-40px_rgba(15,23,42,0.55)] md:p-12">
+            <p className="max-w-4xl text-lg leading-9 text-slate-300 xl:text-xl xl:leading-10">
+              I work best where mathematics, statistics, and disciplined technical thinking meet real decision-making.
+            </p>
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="mailto:nickylow2002@gmail.com"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-4 text-base font-semibold text-slate-950 transition hover:bg-slate-200"
+              >
+                Email me
+                <Icon name="mail" size={20} />
+              </a>
+              <a
+                href="https://github.com/XtremeFire02"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 px-7 py-4 text-base font-semibold text-white transition hover:bg-white/10"
+              >
+                Visit GitHub
+                <Icon name="github" size={20} />
+              </a>
+            </div>
           </div>
-        </div>
+        </FadeUp>
       </Section>
 
       <footer className="border-t border-white/50 bg-white/40 px-6 py-10 text-center text-base text-slate-500 backdrop-blur-md md:px-8">

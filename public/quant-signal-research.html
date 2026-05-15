@@ -315,6 +315,22 @@
           padding: 14px 0;
         }
       }
+      .glass.card, .glass.hero-card, .glass.signal-card {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+      }
+      .glass.card.is-visible, .glass.hero-card.is-visible, .glass.signal-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .glass.card, .glass.hero-card, .glass.signal-card {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -519,5 +535,28 @@
         </footer>
       </div>
     </main>
+    <script>
+      (function () {
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08 }
+        );
+        document.querySelectorAll('.glass.card, .glass.hero-card, .glass.signal-card').forEach(function (el) {
+          var siblings = Array.from(el.parentElement.children).filter(function (c) {
+            return c.classList.contains('glass');
+          });
+          var idx = siblings.indexOf(el);
+          if (idx > 0) el.style.transitionDelay = (idx * 120) + 'ms';
+          observer.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>
