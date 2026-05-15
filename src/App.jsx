@@ -140,7 +140,8 @@ const projectItems = [
     stack: 'Algebraic Topology, Python',
     description:
       'Studied Vietoris-Rips filtrations, chain complexes, homology maps, and barcodes to interpret persistent features in financial time series as potential indicators of regime structure.',
-    cta: 'Project summary on page',
+    href: topologyPdfPath,
+    cta: 'Preview PDF',
   },
 ];
 
@@ -191,6 +192,8 @@ const portraitImagePath = '/portrait.jpg';
 
 const portraitFallbackPath = '/portrait-placeholder.svg';
 
+const topologyPdfPath = '/Alg_Topo_Final_Project.pdf';
+
 const externalLinks = [
   {
     title: 'GitHub',
@@ -212,6 +215,13 @@ const externalLinks = [
     href: 'https://github.com/XtremeFire02/fintech-summit',
     icon: 'code',
     cta: 'Open project',
+  },
+  {
+    title: 'Topology Project PDF',
+    description: 'Preview the persistent homology write-up directly in the browser as a PDF.',
+    href: topologyPdfPath,
+    icon: 'external',
+    cta: 'Open PDF',
   },
   {
     title: 'Email',
@@ -266,7 +276,8 @@ function runSmokeTests() {
   console.assert(profileShortcuts.length === 3, 'Expected 3 profile shortcuts');
   console.assert(educationItems.length === 2, 'Expected 2 education items');
   console.assert(experienceItems.length === 2, 'Expected 2 experience items');
-  console.assert(projectItems.length === 3, 'Expected 3 project items');
+  console.assert(projectItems.every((item) => item.cta), 'Expected every project item to have a CTA');
+  console.assert(externalLinks.some((link) => link.title === 'Topology Project PDF'), 'Expected topology PDF external link');
   console.assert(leadershipItems.length === 2, 'Expected 2 leadership items');
   console.assert(awardItems.length === 3, 'Expected 3 awards');
   console.assert(skillGroups.length === 4, 'Expected 4 skill groups');
@@ -277,12 +288,12 @@ if (typeof window !== 'undefined') {
 }
 
 const Section = ({ id, eyebrow, title, description, children }) => (
-  <section id={id} className="mx-auto max-w-6xl px-6 py-20">
+  <section id={id} className="mx-auto max-w-6xl px-6 py-14 md:py-16">
     <div>
       <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">{eyebrow}</p>
       <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">{title}</h2>
       {description ? <p className="mt-4 max-w-4xl text-base leading-8 text-slate-600">{description}</p> : null}
-      <div className="mt-8">{children}</div>
+      <div className="mt-6 md:mt-7">{children}</div>
     </div>
   </section>
 );
@@ -318,13 +329,13 @@ const Pill = ({ children }) => (
 const SurfaceCard = ({ icon, title, description, href }) => (
   <a
     href={href}
-    className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+    className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
   >
     <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
       <Icon name={icon} size={22} />
     </div>
     <h3 className="text-lg font-semibold text-slate-950">{title}</h3>
-    <p className="mt-3 text-sm leading-6 text-slate-600">{description}</p>
+    <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{description}</p>
     <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
       Open section
       <Icon name="arrowRight" size={16} className="transition group-hover:translate-x-0.5" />
@@ -339,7 +350,7 @@ const PortraitCard = () => (
         src={portraitImagePath}
         alt="Portrait of Nicholas Low Ying Ting"
         onError={handlePortraitError}
-        className="h-[420px] w-full object-cover object-center"
+        className="h-[360px] w-full object-cover object-center md:h-[420px]"
       />
     </div>
     <div className="mt-5 rounded-[1.5rem] bg-slate-950 p-6 text-white">
@@ -353,7 +364,7 @@ const PortraitCard = () => (
 );
 
 const DetailCard = ({ title, subtitle, meta, items }) => (
-  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+  <div className="h-full rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
     <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
       <div>
         <h3 className="text-xl font-semibold text-slate-950">{title}</h3>
@@ -459,7 +470,7 @@ export default function App() {
 
       <header id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(15,23,42,0.14),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.14),_transparent_28%)]" />
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:grid-cols-[1.05fr_0.95fr] md:py-28">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-18 md:grid-cols-[1.05fr_0.95fr] md:gap-10 md:py-20 xl:grid-cols-[1fr_0.95fr]">
           <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
               <Icon name="spark" size={16} />
@@ -471,7 +482,7 @@ export default function App() {
             <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-600">
               I am a Mathematics and Statistics student at the National University of Singapore with interests in pure mathematics, quantitative finance, market microstructure, statistical modelling, and algorithmic trading.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#projects"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
@@ -487,12 +498,12 @@ export default function App() {
                 <Icon name="briefcase" size={18} />
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               {profileHighlights.map((item) => (
                 <Pill key={item}>{item}</Pill>
               ))}
             </div>
-            <div className="mt-8 text-sm leading-7 text-slate-600">
+            <div className="mt-6 text-sm leading-7 text-slate-600">
               <p>
                 Singapore ·{' '}
                 <a href="mailto:nickylow2002@gmail.com" className="font-medium text-slate-950 hover:text-slate-700">
@@ -502,7 +513,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 lg:space-y-5">
             <PortraitCard />
             <div className="grid gap-4 sm:grid-cols-2">
               {quickAccessCards.map((card) => (
@@ -563,10 +574,44 @@ export default function App() {
         title="Projects spanning quant research, DeFi, and mathematical finance."
         description="The project work reflects both technical implementation and mathematical curiosity, from systematic trading research to market design and topological methods for financial data."
       >
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {projectItems.map((project) => (
             <ProjectCard key={project.title} {...project} />
           ))}
+        </div>
+        <div className="mt-6 grid gap-5 xl:grid-cols-[0.42fr_0.58fr]">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <h3 className="text-xl font-semibold text-slate-950">Persistent Homology PDF Preview</h3>
+              <p className="mt-1 text-sm leading-6 text-slate-600">
+                Visitors can preview the write-up here or open the PDF in a new tab for a closer look.
+              </p>
+            </div>
+            <div className="mt-6 space-y-4 text-sm leading-7 text-slate-600">
+              <p>
+                This project connects algebraic topology concepts such as Vietoris-Rips filtrations, chain complexes, and barcodes to structure in financial time series.
+              </p>
+              <p>
+                The embedded preview keeps the work visible on-page while still letting readers open the full write-up separately.
+              </p>
+            </div>
+            <a
+              href={topologyPdfPath}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Open full PDF
+              <Icon name="external" size={16} />
+            </a>
+          </div>
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
+            <iframe
+              title="Persistent Homology for Financial Time Series PDF preview"
+              src={`${topologyPdfPath}#view=FitH`}
+              className="h-[540px] w-full rounded-[1.5rem] border border-slate-200 lg:h-[620px]"
+            />
+          </div>
         </div>
       </Section>
 
