@@ -21,7 +21,8 @@
       }
 
       * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-feature-settings: normal; font-variation-settings: normal; }
+      h1, h2, h3, h4, h5, h6 { font-weight: 600; }
       body {
         margin: 0;
         font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -36,9 +37,9 @@
       }
       .shell { width: min(1280px, calc(100% - 32px)); margin: 0 auto; }
       .glass {
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.78);
-        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
         box-shadow: 0 22px 70px -36px rgba(15, 23, 42, 0.28);
       }
       .topbar {
@@ -58,7 +59,7 @@
       }
       .brand {
         font-size: 1.15rem;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: -0.03em;
       }
       .nav-link {
@@ -84,10 +85,7 @@
         position: absolute;
         inset: 0;
         z-index: 0;
-        background:
-          radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 34%),
-          radial-gradient(circle at 78% 24%, rgba(14, 165, 233, 0.14), transparent 26%),
-          radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.1), transparent 26%);
+        background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 34%);
       }
       .hero-inner {
         position: relative;
