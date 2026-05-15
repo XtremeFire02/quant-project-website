@@ -26,14 +26,14 @@
         margin: 0;
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 34%),
-          radial-gradient(circle at 78% 24%, rgba(14, 165, 233, 0.14), transparent 26%),
-          radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.1), transparent 26%),
-          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 16%, var(--bg) 100%);
+        background: #f8fafc;
       }
 
       a { color: inherit; text-decoration: none; }
+      .page {
+        min-height: 100vh;
+        background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 16%, #f8fafc 100%);
+      }
       .shell { width: min(1280px, calc(100% - 32px)); margin: 0 auto; }
       .glass {
         border: 1px solid var(--border);
@@ -76,7 +76,22 @@
         backdrop-filter: blur(16px);
       }
       .hero {
+        position: relative;
+        overflow: hidden;
         padding: 80px 0 32px;
+      }
+      .hero-glow {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 34%),
+          radial-gradient(circle at 78% 24%, rgba(14, 165, 233, 0.14), transparent 26%),
+          radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.1), transparent 26%);
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
       }
       .hero-card {
         border-radius: 40px;
@@ -315,49 +330,53 @@
       </div>
     </header>
 
-    <main class="shell">
+    <main class="page">
       <section class="hero">
-        <div class="glass hero-card">
-          <div class="eyebrow">Project Detail</div>
-          <h1>Quantitative Signal Research - BTCUSDT Perpetual Futures</h1>
-          <p class="lede">
-            A research-only signal programme for Bitcoin perpetual futures on Binance. Thirteen candidate signals were tested; two survived a multi-stage kill discipline and are currently running in live paper trading.
-          </p>
-          <div class="meta-row">
-            <span class="pill">May 2026</span>
-            <span class="pill">Research-only</span>
-            <span class="pill">No live capital</span>
-            <span class="pill">BTCUSDT · Binance</span>
-          </div>
-          <div class="cta-row">
-            <a class="button button-primary" href="https://github.com/XtremeFire02/Quantitative-Framework-Version-1" target="_blank" rel="noreferrer">View repository</a>
-            <a class="button button-secondary" href="#signals">Jump to results</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="summary-grid">
-          <div class="glass card">
-            <h2 class="card-title">Overview</h2>
-            <p class="muted">Systematic signal research for BTC perpetual futures using a strict kill discipline and net-of-cost evaluation.</p>
-          </div>
-          <div class="glass card">
-            <h2 class="card-title">Universe</h2>
-            <p class="muted">13 candidate signals tested across 2023 in-sample and five walk-forward out-of-sample windows from 2024 to 2026 YTD.</p>
-          </div>
-          <div class="glass card">
-            <h2 class="card-title">Outcome</h2>
-            <p class="muted">2 signals survived. 11 were killed for cost failure, OOS failure, lack of independence, or insufficient data.</p>
+        <div class="hero-glow"></div>
+        <div class="shell hero-inner">
+          <div class="glass hero-card">
+            <div class="eyebrow">Project Detail</div>
+            <h1>Quantitative Signal Research - BTCUSDT Perpetual Futures</h1>
+            <p class="lede">
+              A research-only signal programme for Bitcoin perpetual futures on Binance. Thirteen candidate signals were tested; two survived a multi-stage kill discipline and are currently running in live paper trading.
+            </p>
+            <div class="meta-row">
+              <span class="pill">May 2026</span>
+              <span class="pill">Research-only</span>
+              <span class="pill">No live capital</span>
+              <span class="pill">BTCUSDT · Binance</span>
+            </div>
+            <div class="cta-row">
+              <a class="button button-primary" href="https://github.com/XtremeFire02/Quantitative-Framework-Version-1" target="_blank" rel="noreferrer">View repository</a>
+              <a class="button button-secondary" href="#signals">Jump to results</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section two-col">
-        <div class="glass card table-card">
-          <h3 class="card-title">Methodology</h3>
-          <p class="muted">Signals are screened against a cost-adjusted breakeven threshold derived from round-trip maker fees. Statistical significance alone is not enough; a signal must clear economic viability after costs and funding.</p>
-          <table>
+      <div class="shell">
+        <section class="section">
+          <div class="summary-grid">
+            <div class="glass card">
+              <h2 class="card-title">Overview</h2>
+              <p class="muted">Systematic signal research for BTC perpetual futures using a strict kill discipline and net-of-cost evaluation.</p>
+            </div>
+            <div class="glass card">
+              <h2 class="card-title">Universe</h2>
+              <p class="muted">13 candidate signals tested across 2023 in-sample and five walk-forward out-of-sample windows from 2024 to 2026 YTD.</p>
+            </div>
+            <div class="glass card">
+              <h2 class="card-title">Outcome</h2>
+              <p class="muted">2 signals survived. 11 were killed for cost failure, OOS failure, lack of independence, or insufficient data.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section two-col">
+          <div class="glass card table-card">
+            <h3 class="card-title">Methodology</h3>
+            <p class="muted">Signals are screened against a cost-adjusted breakeven threshold derived from round-trip maker fees. Statistical significance alone is not enough; a signal must clear economic viability after costs and funding.</p>
+            <table>
             <thead>
               <tr>
                 <th>Item</th>
@@ -382,12 +401,12 @@
                 <td>2024 H1, 2024 H2, 2025 H1, 2025 H2, 2026 YTD.</td>
               </tr>
             </tbody>
-          </table>
-        </div>
+            </table>
+          </div>
 
-        <div class="glass card table-card">
-          <h3 class="card-title">Train / OOS Split</h3>
-          <table>
+          <div class="glass card table-card">
+            <h3 class="card-title">Train / OOS Split</h3>
+            <table>
             <thead>
               <tr>
                 <th>Period</th>
@@ -420,18 +439,18 @@
                 <td>Out-of-sample walk-forward.</td>
               </tr>
             </tbody>
-          </table>
-        </div>
-      </section>
+            </table>
+          </div>
+        </section>
 
-      <section id="signals" class="section section-grid">
-        <article class="glass signal-card">
+        <section id="signals" class="section section-grid">
+          <article class="glass signal-card">
           <div class="signal-head">
             <div>
               <div class="signal-tag">Signal 1 - Validated</div>
               <h2 class="signal-name">Fear-mean-reversion regime</h2>
             </div>
-            <div class="small">199 trades · 2024–2026 OOS</div>
+            <div class="small">199 trades · 2024-2026 OOS</div>
           </div>
           <p class="signal-copy">
             General hypothesis: an options-market fear indicator predicts positive 24-hour returns when elevated above its recent baseline. The mechanism is mean reversion: fear peaks are followed by resolution. The signal is filtered out in low-fear environments where it shows no predictive power.
@@ -439,7 +458,7 @@
           <div class="kpis">
             <div class="kpi"><div class="kpi-label">Sharpe</div><div class="kpi-value">+2.95</div></div>
             <div class="kpi"><div class="kpi-label">Net PnL</div><div class="kpi-value">+11,228 bp</div></div>
-            <div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value">−1,612 bp</div></div>
+            <div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value">-1,612 bp</div></div>
             <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value">53.8%</div></div>
           </div>
           <ul class="clean">
@@ -448,9 +467,9 @@
             <li>Positive Sharpe in every sub-period tested.</li>
             <li>The long side contributes 94% of net PnL.</li>
           </ul>
-        </article>
+          </article>
 
-        <article class="glass signal-card">
+          <article class="glass signal-card">
           <div class="signal-head">
             <div>
               <div class="signal-tag">Signal 2 - Shadow</div>
@@ -464,7 +483,7 @@
           <div class="kpis">
             <div class="kpi"><div class="kpi-label">Sharpe</div><div class="kpi-value">+5.37</div></div>
             <div class="kpi"><div class="kpi-label">Net PnL</div><div class="kpi-value">+9,510 bp</div></div>
-            <div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value">−972 bp</div></div>
+            <div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value">-972 bp</div></div>
             <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value">65.7%</div></div>
           </div>
           <ul class="clean">
@@ -473,36 +492,37 @@
             <li>Exclusive Signal 2 trades achieve Sharpe +5.18 with p = 0.007 on 57 independent trades.</li>
             <li>Combined portfolio generates +14,741 bp OOS cumulative PnL.</li>
           </ul>
-        </article>
-      </section>
+          </article>
+        </section>
 
-      <section class="section two-col">
-        <div class="glass card">
-          <h3 class="card-title">Kill Log</h3>
-          <p class="muted">13 candidate signals tested. 11 killed.</p>
-          <ul class="clean">
-            <li>Below cost breakeven.</li>
-            <li>Out-of-sample failure.</li>
-            <li>Not independent of surviving signals.</li>
-            <li>Insufficient data.</li>
-          </ul>
-        </div>
+        <section class="section two-col">
+          <div class="glass card">
+            <h3 class="card-title">Kill Log</h3>
+            <p class="muted">13 candidate signals tested. 11 killed.</p>
+            <ul class="clean">
+              <li>Below cost breakeven.</li>
+              <li>Out-of-sample failure.</li>
+              <li>Not independent of surviving signals.</li>
+              <li>Insufficient data.</li>
+            </ul>
+          </div>
 
-        <div class="glass card">
-          <h3 class="card-title">Limitations</h3>
-          <ul class="clean">
-            <li>Edge fades in sustained low-volatility regimes; filters reduce but do not eliminate inactivity.</li>
-            <li>Each 6-month OOS window has roughly 180 daily observations; forward evidence will sharpen conclusions.</li>
-            <li>Maker fills are assumed; volatile periods may drift toward taker costs.</li>
-            <li>Single-asset study on BTCUSDT Binance perpetuals; cross-asset generalisability is untested.</li>
-            <li>Paper trading only. No live capital at risk.</li>
-          </ul>
-        </div>
-      </section>
+          <div class="glass card">
+            <h3 class="card-title">Limitations</h3>
+            <ul class="clean">
+              <li>Edge fades in sustained low-volatility regimes; filters reduce but do not eliminate inactivity.</li>
+              <li>Each 6-month OOS window has roughly 180 daily observations; forward evidence will sharpen conclusions.</li>
+              <li>Maker fills are assumed; volatile periods may drift toward taker costs.</li>
+              <li>Single-asset study on BTCUSDT Binance perpetuals; cross-asset generalisability is untested.</li>
+              <li>Paper trading only. No live capital at risk.</li>
+            </ul>
+          </div>
+        </section>
 
-      <footer class="shell">
-        Sanitized research summary for website presentation. No live capital deployed.
-      </footer>
+        <footer>
+          Sanitized research summary for website presentation. No live capital deployed.
+        </footer>
+      </div>
     </main>
   </body>
 </html>
