@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantitative Signal Research | Nicholas Low</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --bg-accent: #eef2ff;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-strong: #ffffff;
+        --border: rgba(255, 255, 255, 0.75);
+        --text: #0f172a;
+        --muted: #475569;
+        --soft: #64748b;
+        --dark: #0f172a;
+        --dark-2: #1e293b;
+        --shadow: 0 28px 80px -40px rgba(15, 23, 42, 0.35);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 30%),
+          radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.12), transparent 22%),
+          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 16%, var(--bg) 100%);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      .shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+      .glass {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        backdrop-filter: blur(16px);
+        box-shadow: var(--shadow);
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.66);
+        backdrop-filter: blur(18px);
+      }
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 0;
+      }
+      .brand {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 16px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.74);
+        border: 1px solid rgba(255,255,255,0.7);
+        color: var(--muted);
+        font-size: 0.96rem;
+        font-weight: 600;
+      }
+      .hero {
+        padding: 72px 0 32px;
+      }
+      .hero-card {
+        border-radius: 36px;
+        padding: 32px;
+      }
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 18px;
+        color: var(--soft);
+        font-size: 0.86rem;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0;
+        max-width: 780px;
+        font-size: clamp(2.4rem, 6vw, 4.9rem);
+        line-height: 1.02;
+        letter-spacing: -0.05em;
+      }
+      .lede {
+        margin: 22px 0 0;
+        max-width: 760px;
+        font-size: 1.18rem;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .pill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.75);
+        background: rgba(255,255,255,0.72);
+        color: var(--muted);
+        font-size: 0.96rem;
+        font-weight: 600;
+      }
+      .section {
+        padding: 28px 0;
+      }
+      .section-grid {
+        display: grid;
+        gap: 24px;
+      }
+      .summary-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .card {
+        border-radius: 30px;
+        padding: 28px;
+      }
+      .card h2,
+      .card h3,
+      .card h4,
+      .table-card h3 {
+        margin: 0;
+        letter-spacing: -0.03em;
+      }
+      .card-title {
+        margin-bottom: 10px;
+        font-size: 1.65rem;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .small {
+        color: var(--soft);
+        font-size: 0.95rem;
+      }
+      .kpis {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .kpi {
+        padding: 18px 18px 16px;
+        border-radius: 22px;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(255,255,255,0.7);
+      }
+      .kpi-label {
+        color: var(--soft);
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-weight: 700;
+      }
+      .kpi-value {
+        margin-top: 10px;
+        font-size: 1.7rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .two-col {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1.05fr 0.95fr;
+      }
+      .table-card table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+      }
+      .table-card th,
+      .table-card td {
+        padding: 14px 0;
+        text-align: left;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+        vertical-align: top;
+      }
+      .table-card th {
+        color: var(--soft);
+        font-size: 0.86rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-weight: 700;
+      }
+      .signal-card {
+        padding: 30px;
+        border-radius: 32px;
+      }
+      .signal-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .signal-name {
+        font-size: 2rem;
+      }
+      .signal-tag {
+        color: var(--soft);
+        font-size: 0.96rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+      }
+      .signal-copy {
+        margin: 18px 0 22px;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.9;
+      }
+      ul.clean {
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      ul.clean li {
+        display: flex;
+        gap: 12px;
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+      ul.clean li::before {
+        content: "";
+        flex: 0 0 8px;
+        height: 8px;
+        margin-top: 11px;
+        border-radius: 999px;
+        background: var(--dark);
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 20px;
+        border-radius: 18px;
+        font-weight: 700;
+        font-size: 0.98rem;
+      }
+      .button-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--dark), var(--dark-2));
+        box-shadow: 0 24px 60px -28px rgba(15, 23, 42, 0.62);
+      }
+      .button-secondary {
+        border: 1px solid rgba(255,255,255,0.75);
+        background: rgba(255,255,255,0.72);
+        color: var(--text);
+      }
+      footer {
+        padding: 28px 0 48px;
+        color: var(--soft);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 900px) {
+        .summary-grid,
+        .kpis,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding-top: 44px;
+        }
+        .hero-card,
+        .card,
+        .signal-card {
+          padding: 22px;
+          border-radius: 24px;
+        }
+        .topbar-inner {
+          padding: 14px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="/">Nicholas Low Ying Ting</a>
+        <a class="nav-link" href="/">Back to main site</a>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div class="glass hero-card">
+          <div class="eyebrow">Project Detail</div>
+          <h1>Quantitative Signal Research — BTCUSDT Perpetual Futures</h1>
+          <p class="lede">
+            A research-only signal programme for Bitcoin perpetual futures on Binance. Thirteen candidate signals were tested; two survived a multi-stage kill discipline and are currently running in live paper trading.
+          </p>
+          <div class="meta-row">
+            <span class="pill">May 2026</span>
+            <span class="pill">Research-only</span>
+            <span class="pill">No live capital</span>
+            <span class="pill">BTCUSDT · Binance</span>
+          </div>
+          <div class="cta-row">
+            <a class="button button-primary" href="https://github.com/XtremeFire02/Quantitative-Framework-Version-1" target="_blank" rel="noreferrer">View repository</a>
+            <a class="button button-secondary" href="#signals">Jump to results</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="summary-grid">
+          <div class="glass card">
+            <h2 class="card-title">Overview</h2>
+            <p class="muted">Systematic signal research for BTC perpetual futures using a strict kill discipline and net-of-cost evaluation.</p>
+          </div>
+          <div class="glass card">
+            <h2 class="card-title">Universe</h2>
+            <p class="muted">13 candidate signals tested across 2023 in-sample and five walk-forward out-of-sample windows from 2024 to 2026 YTD.</p>
+          </div>
+          <div class="glass card">
+            <h2 class="card-title">Outcome</h2>
+            <p class="muted">2 signals survived. 11 were killed for cost failure, OOS failure, lack of independence, or insufficient data.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section two-col">
+        <div class="glass card table-card">
+          <h3 class="card-title">Methodology</h3>
+          <p class="muted">Signals are screened against a cost-adjusted breakeven threshold derived from round-trip maker fees. Statistical significance alone is not enough; a signal must clear economic viability after costs and funding.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Evaluation framework</td>
+                <td>Cost-adjusted breakeven hurdle with block bootstrap significance testing.</td>
+              </tr>
+              <tr>
+                <td>Bootstrap</td>
+                <td>$B = 2{,}000$ with 21-day blocks to correct for serial autocorrelation.</td>
+              </tr>
+              <tr>
+                <td>Cost model</td>
+                <td>Maker round-trip = 6 bp. Results are net of costs and include perpetual funding.</td>
+              </tr>
+              <tr>
+                <td>Walk-forward windows</td>
+                <td>2024 H1, 2024 H2, 2025 H1, 2025 H2, 2026 YTD.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="glass card table-card">
+          <h3 class="card-title">Train / OOS Split</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2023</td>
+                <td>In-sample — all parameters fixed here.</td>
+              </tr>
+              <tr>
+                <td>2024 H1</td>
+                <td>Out-of-sample walk-forward.</td>
+              </tr>
+              <tr>
+                <td>2024 H2</td>
+                <td>Out-of-sample walk-forward.</td>
+              </tr>
+              <tr>
+                <td>2025 H1</td>
+                <td>Out-of-sample walk-forward.</td>
+              </tr>
+              <tr>
+                <td>2025 H2</td>
+                <td>Out-of-sample walk-forward.</td>
+              </tr>
+              <tr>
+                <td>2026 YTD</td>
+                <td>Out-of-sample walk-forward.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="signals" class="section section-grid">
+        <article class="glass signal-card">
+          <div class="signal-head">
+            <div>
+              <div class="signal-tag">Signal 1 — Validated</div>
+              <h2 class="signal-name">Fear-mean-reversion regime</h2>
+            </div>
+            <div class="small">199 trades · 2024–2026 OOS</div>
+          </div>
+          <p class="signal-copy">
+            General hypothesis: an options-market fear indicator predicts positive 24-hour returns when elevated above its recent baseline. The mechanism is mean reversion: fear peaks are followed by resolution. The signal is filtered out in low-fear environments where it shows no predictive power.
+          </p>
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-label">Sharpe</div><div class="kpi-value">+2.95</div></div>
+            <div class="kpi"><div class="kpi-label">Net PnL</div><div class="kpi-value">+11,228 bp</div></div>
+            <div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value">−1,612 bp</div></div>
+            <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value">53.8%</div></div>
+          </div>
+          <ul class="clean">
+            <li>Market exposure: 16.2% of days.</li>
+            <li>Block-bootstrap p-value: &lt; 0.0005.</li>
+            <li>Positive Sharpe in every sub-period tested.</li>
+            <li>The long side contributes 94% of net PnL.</li>
+          </ul>
+        </article>
+
+        <article class="glass signal-card">
+          <div class="signal-head">
+            <div>
+              <div class="signal-tag">Signal 2 — Shadow</div>
+              <h2 class="signal-name">Forced-seller exhaustion regime</h2>
+            </div>
+            <div class="small">99 trades · forward review Aug 2026</div>
+          </div>
+          <p class="signal-copy">
+            General hypothesis: a specific perpetual futures microstructure regime identifies forced-seller exhaustion. The mechanism is supply-side: once over-levered participants are cleared, price recovers into a liquidity vacuum. The signal is constructed to be orthogonal to Signal 1.
+          </p>
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-label">Sharpe</div><div class="kpi-value">+5.37</div></div>
+            <div class="kpi"><div class="kpi-label">Net PnL</div><div class="kpi-value">+9,510 bp</div></div>
+            <div class="kpi"><div class="kpi-label">Max Drawdown</div><div class="kpi-value">−972 bp</div></div>
+            <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value">65.7%</div></div>
+          </div>
+          <ul class="clean">
+            <li>Block-bootstrap p-value: &lt; 0.001.</li>
+            <li>Signal correlation to Signal 1: +0.027.</li>
+            <li>Exclusive Signal 2 trades achieve Sharpe +5.18 with p = 0.007 on 57 independent trades.</li>
+            <li>Combined portfolio generates +14,741 bp OOS cumulative PnL.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section two-col">
+        <div class="glass card">
+          <h3 class="card-title">Kill Log</h3>
+          <p class="muted">13 candidate signals tested. 11 killed.</p>
+          <ul class="clean">
+            <li>Below cost breakeven.</li>
+            <li>Out-of-sample failure.</li>
+            <li>Not independent of surviving signals.</li>
+            <li>Insufficient data.</li>
+          </ul>
+        </div>
+
+        <div class="glass card">
+          <h3 class="card-title">Limitations</h3>
+          <ul class="clean">
+            <li>Edge fades in sustained low-volatility regimes; filters reduce but do not eliminate inactivity.</li>
+            <li>Each 6-month OOS window has roughly 180 daily observations; forward evidence will sharpen conclusions.</li>
+            <li>Maker fills are assumed; volatile periods may drift toward taker costs.</li>
+            <li>Single-asset study on BTCUSDT Binance perpetuals; cross-asset generalisability is untested.</li>
+            <li>Paper trading only. No live capital at risk.</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer class="shell">
+        Sanitized research summary for website presentation. No live capital deployed.
+      </footer>
+    </main>
+  </body>
+</html>

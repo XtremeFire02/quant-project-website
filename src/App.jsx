@@ -99,6 +99,8 @@ const projectItems = [
       'A modular research stack for crypto signals, regime filters, and backtest diagnostics.',
     href: 'https://github.com/XtremeFire02/Quantitative-Framework-Version-1',
     cta: 'View repository',
+    detailHref: '/quant-signal-research.html',
+    detailCta: 'Extra details',
   },
   {
     eyebrow: 'Hackathon Project',
@@ -341,17 +343,39 @@ const DetailCard = ({ title, subtitle, meta, items }) => (
   </div>
 );
 
-const ProjectCard = ({ eyebrow, title, stack, description, href, cta }) => {
+const ProjectCard = ({ eyebrow, title, stack, description, href, cta, detailHref, detailCta }) => {
   const content = (
     <>
       <p className="text-base font-semibold uppercase tracking-[0.2em] text-slate-500">{eyebrow}</p>
       <h3 className="mt-4 text-2xl font-semibold text-slate-950">{title}</h3>
       <p className="mt-2 text-base font-medium text-slate-500">{stack}</p>
       <p className="mt-5 flex-1 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">{description}</p>
-      <span className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-slate-950">
-        {cta}
-        {href ? <Icon name="arrowRight" size={18} className="transition group-hover:translate-x-0.5" /> : null}
-      </span>
+      <div className="mt-7 flex flex-wrap items-center gap-5">
+        {href ? (
+          <a
+            href={href}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noreferrer' : undefined}
+            className="inline-flex items-center gap-2 text-base font-semibold text-slate-950 transition hover:text-slate-700"
+          >
+            {cta}
+            <Icon name="arrowRight" size={18} className="transition group-hover:translate-x-0.5" />
+          </a>
+        ) : (
+          <span className="inline-flex items-center gap-2 text-base font-semibold text-slate-950">{cta}</span>
+        )}
+        {detailHref && detailCta ? (
+          <a
+            href={detailHref}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-slate-500 transition hover:text-slate-800"
+          >
+            {detailCta}
+            <Icon name="external" size={16} />
+          </a>
+        ) : null}
+      </div>
     </>
   );
 
@@ -360,14 +384,9 @@ const ProjectCard = ({ eyebrow, title, stack, description, href, cta }) => {
   }
 
   return (
-    <a
-      href={href}
-      target={href.startsWith('http') ? '_blank' : undefined}
-      rel={href.startsWith('http') ? 'noreferrer' : undefined}
-      className="group flex h-full flex-col rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md transition hover:-translate-y-1 hover:shadow-[0_30px_80px_-34px_rgba(15,23,42,0.34)] xl:p-8"
-    >
+    <div className="group flex h-full flex-col rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md transition hover:-translate-y-1 hover:shadow-[0_30px_80px_-34px_rgba(15,23,42,0.34)] xl:p-8">
       {content}
-    </a>
+    </div>
   );
 };
 
