@@ -186,6 +186,10 @@ const skillGroups = [
 
 const profileHighlights = ['Mathematics & Statistics', 'Quant Research', 'Algorithmic Trading', 'Topological Data Analysis', 'DeFi', 'Technical Writing'];
 
+const portraitImagePath = '/portrait.jpg';
+
+const portraitFallbackPath = '/portrait-placeholder.svg';
+
 const externalLinks = [
   {
     title: 'GitHub',
@@ -238,6 +242,15 @@ function Icon({ name = 'fallback', size = 20, className = '' }) {
       <path d={path} />
     </svg>
   );
+}
+
+function handlePortraitError(event) {
+  if (event.currentTarget.dataset.fallbackApplied === 'true') {
+    return;
+  }
+
+  event.currentTarget.dataset.fallbackApplied = 'true';
+  event.currentTarget.src = portraitFallbackPath;
 }
 
 function runSmokeTests() {
@@ -315,6 +328,26 @@ const SurfaceCard = ({ icon, title, description, href }) => (
       <Icon name="arrowRight" size={16} className="transition group-hover:translate-x-0.5" />
     </span>
   </a>
+);
+
+const PortraitCard = () => (
+  <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-xl">
+    <div className="overflow-hidden rounded-[1.5rem] bg-slate-100">
+      <img
+        src={portraitImagePath}
+        alt="Portrait of Nicholas Low Ying Ting"
+        onError={handlePortraitError}
+        className="h-[420px] w-full object-cover object-center"
+      />
+    </div>
+    <div className="mt-5 rounded-[1.5rem] bg-slate-950 p-6 text-white">
+      <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Profile</p>
+      <h2 className="mt-3 text-2xl font-semibold">Nicholas Low Ying Ting</h2>
+      <p className="mt-3 text-sm leading-7 text-slate-300">
+        Mathematics and Statistics student with interests spanning quant research, market structure, mathematical modelling, and technically rigorous problem solving.
+      </p>
+    </div>
+  </div>
 );
 
 const DetailCard = ({ title, subtitle, meta, items }) => (
@@ -467,16 +500,19 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {quickAccessCards.map((card) => (
-              <SurfaceCard
-                key={card.title}
-                icon={card.icon}
-                title={card.title}
-                description={card.description}
-                href={card.href}
-              />
-            ))}
+          <div className="space-y-4">
+            <PortraitCard />
+            <div className="grid gap-4 sm:grid-cols-2">
+              {quickAccessCards.map((card) => (
+                <SurfaceCard
+                  key={card.title}
+                  icon={card.icon}
+                  title={card.title}
+                  description={card.description}
+                  href={card.href}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </header>
