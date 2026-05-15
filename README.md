@@ -1,16 +1,30 @@
-# React + Vite
+# Quant Project Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This Vite + React site now works as a general personal website hub instead of a single-project landing page.
 
-Currently, two official plugins are available:
+## What Changed
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Top icon navigation for `Projects`, `Experience`, `About`, `Links`, and `Contact`
+- Top shortcuts for `GitHub` and `LinkedIn`
+- A general homepage that lets visitors jump to what they want to see
+- A featured projects section where the quant framework is one showcased item
+- Dedicated sections for work experience, external links, and contact details
 
-## React Compiler
+## Run Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run build
+```
+
+## Notes
+
+- `GitHub` is linked to `https://github.com/XtremeFire02`
+- `LinkedIn` currently points visitors to the links section until you add your real profile URL
+- The main page content lives in `src/App.jsx`
