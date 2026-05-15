@@ -39,33 +39,6 @@ const profileShortcuts = [
   { label: 'Email', href: 'mailto:nickylow2002@gmail.com', icon: 'mail' },
 ];
 
-const quickAccessCards = [
-  {
-    icon: 'cap',
-    title: 'Education',
-    description: 'Mathematics and statistics at NUS, plus advanced exchange coursework in algebraic topology, PDEs, and stochastic processes.',
-    href: '#education',
-  },
-  {
-    icon: 'briefcase',
-    title: 'Experience',
-    description: 'Quant trading internship work and independent undergraduate research with strong emphasis on mathematical rigor.',
-    href: '#experience',
-  },
-  {
-    icon: 'folder',
-    title: 'Projects',
-    description: 'Quant research systems, DeFi hackathon builds, and mathematical finance work grounded in real technical depth.',
-    href: '#projects',
-  },
-  {
-    icon: 'trophy',
-    title: 'Awards',
-    description: 'Competition and hackathon results that reinforce both mathematical and applied problem-solving ability.',
-    href: '#awards',
-  },
-];
-
 const educationItems = [
   {
     school: 'National University of Singapore',
@@ -121,7 +94,7 @@ const projectItems = [
     title: 'Quantitative Trading Research Framework',
     stack: 'Python, Time Series, Backtesting',
     description:
-      'Built a modular framework for studying crypto market inefficiencies, focused on BTCUSDT perpetual futures, volatility-related signals, hypothesis testing, regime filters, and performance diagnostics.',
+      'A modular research stack for crypto signals, regime filters, and backtest diagnostics.',
     href: 'https://github.com/XtremeFire02/Quantitative-Framework-Version-1',
     cta: 'View repository',
   },
@@ -130,7 +103,7 @@ const projectItems = [
     title: 'Crypto AMM and Carbon Credit DEX',
     stack: 'Python, Web3, XRPL',
     description:
-      'Developed a carbon-credit DEX concept using AMM logic on XRPL-related infrastructure and presented it at NUS Fintech Summit 2025, where the team won the BGA Bounty Top 3 award.',
+      'A hackathon build combining AMM design, carbon credits, and XRPL infrastructure.',
     href: 'https://github.com/XtremeFire02/fintech-summit',
     cta: 'Open hackathon repo',
   },
@@ -139,7 +112,7 @@ const projectItems = [
     title: 'Persistent Homology for Financial Time Series',
     stack: 'Algebraic Topology, Python',
     description:
-      'Studied Vietoris-Rips filtrations, chain complexes, homology maps, and barcodes to interpret persistent features in financial time series as potential indicators of regime structure.',
+      'Using topology to study structure and regime shifts in financial time series.',
     href: topologyPdfPath,
     cta: 'Preview PDF',
   },
@@ -186,7 +159,7 @@ const skillGroups = [
   },
 ];
 
-const profileHighlights = ['Mathematics & Statistics', 'Quant Research', 'Algorithmic Trading', 'Topological Data Analysis', 'DeFi', 'Technical Writing'];
+const profileHighlights = ['Mathematics', 'Quant Research', 'Trading Systems', 'Topology'];
 
 const portraitImagePath = '/portrait.jpg';
 
@@ -197,42 +170,42 @@ const topologyPdfPath = '/Alg_Topo_Final_Project.pdf';
 const externalLinks = [
   {
     title: 'GitHub',
-    description: 'Main profile for public repositories, research systems, and project code.',
+    description: 'Code, research systems, and public projects.',
     href: 'https://github.com/XtremeFire02',
     icon: 'github',
     cta: 'Open GitHub',
   },
   {
     title: 'Quant Framework Repo',
-    description: 'Quantitative trading research framework focused on crypto market inefficiencies and backtesting.',
+    description: 'Crypto signal research and backtesting framework.',
     href: 'https://github.com/XtremeFire02/Quantitative-Framework-Version-1',
     icon: 'folder',
     cta: 'Open repository',
   },
   {
     title: 'Fintech Hackathon Repo',
-    description: 'Crypto AMM and carbon credit DEX project from the NUS Fintech Summit hackathon.',
+    description: 'AMM and carbon credit DEX hackathon project.',
     href: 'https://github.com/XtremeFire02/fintech-summit',
     icon: 'code',
     cta: 'Open project',
   },
   {
     title: 'Topology Project PDF',
-    description: 'Preview the persistent homology write-up directly in the browser as a PDF.',
+    description: 'Read the topology write-up directly in the browser.',
     href: topologyPdfPath,
     icon: 'external',
     cta: 'Open PDF',
   },
   {
     title: 'Email',
-    description: 'Direct contact for internships, research opportunities, and collaborations.',
+    description: 'Direct contact for internships and research.',
     href: 'mailto:nickylow2002@gmail.com',
     icon: 'mail',
     cta: 'Send email',
   },
   {
     title: 'LinkedIn',
-    description: 'Professional profile with education, experience, and project history.',
+    description: 'Professional profile and background.',
     href: 'https://www.linkedin.com/in/nicholas-low-a0252426a/',
     icon: 'linkedin',
     cta: 'Open LinkedIn',
@@ -288,12 +261,12 @@ if (typeof window !== 'undefined') {
 }
 
 const Section = ({ id, eyebrow, title, description, children }) => (
-  <section id={id} className="mx-auto max-w-6xl px-6 py-14 md:py-16">
+  <section id={id} className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-20">
     <div>
-      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">{eyebrow}</p>
-      <h2 className="max-w-4xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">{title}</h2>
-      {description ? <p className="mt-4 max-w-4xl text-base leading-8 text-slate-600">{description}</p> : null}
-      <div className="mt-6 md:mt-7">{children}</div>
+      <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">{eyebrow}</p>
+      <h2 className="max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl md:leading-[1.04]">{title}</h2>
+      {description ? <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{description}</p> : null}
+      <div className="mt-8 md:mt-9">{children}</div>
     </div>
   </section>
 );
@@ -301,9 +274,9 @@ const Section = ({ id, eyebrow, title, description, children }) => (
 const NavChip = ({ href, icon, label }) => (
   <a
     href={href}
-    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-950"
+    className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-5 py-2.5 text-base font-medium text-slate-700 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.35)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-white hover:text-slate-950"
   >
-    <Icon name={icon} size={16} />
+    <Icon name={icon} size={18} />
     <span>{label}</span>
   </a>
 );
@@ -313,69 +286,52 @@ const ProfileChip = ({ href, icon, label, external = false }) => (
     href={href}
     target={external ? '_blank' : undefined}
     rel={external ? 'noreferrer' : undefined}
-    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-950 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-800"
+    className="inline-flex items-center gap-2 rounded-full border border-slate-900 bg-slate-950 px-5 py-2.5 text-base font-medium text-white shadow-[0_18px_40px_-22px_rgba(15,23,42,0.6)] transition hover:-translate-y-0.5 hover:bg-slate-800"
   >
-    <Icon name={icon} size={16} />
+    <Icon name={icon} size={18} />
     <span>{label}</span>
   </a>
 );
 
 const Pill = ({ children }) => (
-  <span className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
+  <span className="rounded-full border border-white/70 bg-white/70 px-5 py-2.5 text-base font-medium text-slate-700 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.22)] backdrop-blur-md">
     {children}
   </span>
 );
 
-const SurfaceCard = ({ icon, title, description, href }) => (
-  <a
-    href={href}
-    className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-  >
-    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
-      <Icon name={icon} size={22} />
-    </div>
-    <h3 className="text-lg font-semibold text-slate-950">{title}</h3>
-    <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{description}</p>
-    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
-      Open section
-      <Icon name="arrowRight" size={16} className="transition group-hover:translate-x-0.5" />
-    </span>
-  </a>
-);
-
 const PortraitCard = () => (
-  <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-xl">
+  <div className="rounded-[2.5rem] border border-white/70 bg-white/78 p-5 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.45)] backdrop-blur-md xl:p-6">
     <div className="overflow-hidden rounded-[1.5rem] bg-slate-100">
       <img
         src={portraitImagePath}
         alt="Portrait of Nicholas Low Ying Ting"
         onError={handlePortraitError}
-        className="h-[360px] w-full object-cover object-center md:h-[420px]"
+        className="h-[500px] w-full object-cover object-center md:h-[620px] xl:h-[700px]"
       />
     </div>
-    <div className="mt-5 rounded-[1.5rem] bg-slate-950 p-6 text-white">
-      <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">Profile</p>
-      <h2 className="mt-3 text-2xl font-semibold">Nicholas Low Ying Ting</h2>
-      <p className="mt-3 text-sm leading-7 text-slate-300">
-        Mathematics and Statistics student with interests spanning quant research, market structure, mathematical modelling, and technically rigorous problem solving.
+    <div className="mt-5 rounded-[1.75rem] bg-[linear-gradient(145deg,#0f172a,#1e293b)] p-7 text-white xl:p-8">
+      <p className="text-base font-medium uppercase tracking-[0.2em] text-slate-400">Profile</p>
+      <h2 className="mt-3 text-3xl font-semibold xl:text-[2rem]">Nicholas Low Ying Ting</h2>
+      <p className="mt-4 text-base leading-8 text-slate-300 xl:text-lg xl:leading-9">
+        Mathematics and Statistics student focused on quant research, trading systems, and mathematically rigorous work.
       </p>
     </div>
   </div>
 );
 
 const DetailCard = ({ title, subtitle, meta, items }) => (
-  <div className="h-full rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+  <div className="h-full rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
     <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
       <div>
-        <h3 className="text-xl font-semibold text-slate-950">{title}</h3>
-        <p className="mt-1 text-sm font-medium text-slate-600">{subtitle}</p>
+        <h3 className="text-2xl font-semibold text-slate-950">{title}</h3>
+        <p className="mt-2 text-base font-medium text-slate-600">{subtitle}</p>
       </div>
-      <p className="text-sm font-medium text-slate-500">{meta}</p>
+      <p className="text-base font-medium text-slate-500">{meta}</p>
     </div>
-    <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+    <ul className="mt-6 space-y-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
       {items.map((item) => (
         <li key={item} className="flex gap-3">
-          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-950" />
+          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-900" />
           <span>{item}</span>
         </li>
       ))}
@@ -386,19 +342,19 @@ const DetailCard = ({ title, subtitle, meta, items }) => (
 const ProjectCard = ({ eyebrow, title, stack, description, href, cta }) => {
   const content = (
     <>
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{eyebrow}</p>
-      <h3 className="mt-4 text-xl font-semibold text-slate-950">{title}</h3>
-      <p className="mt-2 text-sm font-medium text-slate-500">{stack}</p>
-      <p className="mt-4 flex-1 text-sm leading-7 text-slate-600">{description}</p>
-      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
+      <p className="text-base font-semibold uppercase tracking-[0.2em] text-slate-500">{eyebrow}</p>
+      <h3 className="mt-4 text-2xl font-semibold text-slate-950">{title}</h3>
+      <p className="mt-2 text-base font-medium text-slate-500">{stack}</p>
+      <p className="mt-5 flex-1 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">{description}</p>
+      <span className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-slate-950">
         {cta}
-        {href ? <Icon name="arrowRight" size={16} className="transition group-hover:translate-x-0.5" /> : null}
+        {href ? <Icon name="arrowRight" size={18} className="transition group-hover:translate-x-0.5" /> : null}
       </span>
     </>
   );
 
   if (!href) {
-    return <div className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">{content}</div>;
+    return <div className="flex h-full flex-col rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">{content}</div>;
   }
 
   return (
@@ -406,7 +362,7 @@ const ProjectCard = ({ eyebrow, title, stack, description, href, cta }) => {
       href={href}
       target={href.startsWith('http') ? '_blank' : undefined}
       rel={href.startsWith('http') ? 'noreferrer' : undefined}
-      className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+      className="group flex h-full flex-col rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md transition hover:-translate-y-1 hover:shadow-[0_30px_80px_-34px_rgba(15,23,42,0.34)] xl:p-8"
     >
       {content}
     </a>
@@ -414,17 +370,17 @@ const ProjectCard = ({ eyebrow, title, stack, description, href, cta }) => {
 };
 
 const ExternalLinkCard = ({ title, description, href, icon, cta }) => {
-  const classes = 'group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md';
+  const classes = 'group flex h-full flex-col rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md transition hover:-translate-y-1 hover:shadow-[0_30px_80px_-34px_rgba(15,23,42,0.34)] xl:p-8';
 
   if (!href) {
     return (
       <div className={`${classes} opacity-80`}>
-        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
-          <Icon name={icon} size={22} />
+        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
+          <Icon name={icon} size={24} />
         </div>
-        <h3 className="text-lg font-semibold text-slate-950">{title}</h3>
-        <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{description}</p>
-        <span className="mt-6 text-sm font-semibold text-slate-500">{cta}</span>
+        <h3 className="text-2xl font-semibold text-slate-950">{title}</h3>
+        <p className="mt-4 flex-1 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">{description}</p>
+        <span className="mt-7 text-base font-semibold text-slate-500">{cta}</span>
       </div>
     );
   }
@@ -436,14 +392,14 @@ const ExternalLinkCard = ({ title, description, href, icon, cta }) => {
       rel={href.startsWith('http') ? 'noreferrer' : undefined}
       className={classes}
     >
-      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
-        <Icon name={icon} size={22} />
+      <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-white">
+        <Icon name={icon} size={24} />
       </div>
-      <h3 className="text-lg font-semibold text-slate-950">{title}</h3>
-      <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{description}</p>
-      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
+      <h3 className="text-2xl font-semibold text-slate-950">{title}</h3>
+      <p className="mt-4 flex-1 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">{description}</p>
+      <span className="mt-7 inline-flex items-center gap-2 text-base font-semibold text-slate-950">
         {cta}
-        <Icon name="arrowRight" size={16} className="transition group-hover:translate-x-0.5" />
+        <Icon name="arrowRight" size={18} className="transition group-hover:translate-x-0.5" />
       </span>
     </a>
   );
@@ -451,13 +407,13 @@ const ExternalLinkCard = ({ title, description, href, icon, cta }) => {
 
 export default function App() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
-          <a href="#top" className="text-lg font-semibold tracking-tight text-slate-950">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#eef2ff_0%,#f8fafc_16%,#f8fafc_100%)] text-slate-900">
+      <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/65 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 md:px-8 lg:flex-row lg:items-center lg:justify-between">
+          <a href="#top" className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">
             Nicholas Low Ying Ting
           </a>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3.5">
             {primaryNav.map((item) => (
               <NavChip key={item.label} href={item.href} icon={item.icon} label={item.label} />
             ))}
@@ -469,41 +425,41 @@ export default function App() {
       </nav>
 
       <header id="top" className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(15,23,42,0.14),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.14),_transparent_28%)]" />
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-18 md:grid-cols-[1.05fr_0.95fr] md:gap-10 md:py-20 xl:grid-cols-[1fr_0.95fr]">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
-              <Icon name="spark" size={16} />
-              Mathematics, statistics, and quantitative research
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.22),_transparent_34%),radial-gradient(circle_at_78%_24%,_rgba(14,165,233,0.14),_transparent_26%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.1),_transparent_26%)]" />
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-20 md:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:py-24">
+          <div className="max-w-4xl">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-5 py-2.5 text-base font-medium text-slate-700 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.35)] backdrop-blur-md">
+              <Icon name="spark" size={18} />
+              Quant research · mathematics · trading systems
             </div>
-            <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 md:text-7xl">
-              Building depth across mathematics, quant research, and technical projects.
+            <h1 className="max-w-5xl text-6xl font-semibold tracking-tight text-slate-950 md:text-7xl xl:text-[5.6rem] xl:leading-[1.02]">
+              Mathematics, markets, and technical work.
             </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-600">
-              I am a Mathematics and Statistics student at the National University of Singapore with interests in pure mathematics, quantitative finance, market microstructure, statistical modelling, and algorithmic trading.
+            <p className="mt-8 max-w-4xl text-xl leading-9 text-slate-600 xl:text-[1.4rem] xl:leading-10">
+              NUS Mathematics and Statistics student building toward quant research and trading.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#0f172a,#1e293b)] px-7 py-4 text-base font-semibold text-white shadow-[0_24px_60px_-28px_rgba(15,23,42,0.65)] transition hover:-translate-y-0.5"
               >
                 Explore projects
-                <Icon name="folder" size={18} />
+                <Icon name="folder" size={20} />
               </a>
               <a
                 href="#experience"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-slate-100"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/70 bg-white/72 px-7 py-4 text-base font-semibold text-slate-950 shadow-[0_18px_40px_-26px_rgba(15,23,42,0.3)] backdrop-blur-md transition hover:-translate-y-0.5"
               >
                 View experience
-                <Icon name="briefcase" size={18} />
+                <Icon name="briefcase" size={20} />
               </a>
             </div>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap gap-3.5">
               {profileHighlights.map((item) => (
                 <Pill key={item}>{item}</Pill>
               ))}
             </div>
-            <div className="mt-6 text-sm leading-7 text-slate-600">
+            <div className="mt-8 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
               <p>
                 Singapore ·{' '}
                 <a href="mailto:nickylow2002@gmail.com" className="font-medium text-slate-950 hover:text-slate-700">
@@ -513,19 +469,8 @@ export default function App() {
             </div>
           </div>
 
-          <div className="space-y-4 lg:space-y-5">
+          <div>
             <PortraitCard />
-            <div className="grid gap-4 sm:grid-cols-2">
-              {quickAccessCards.map((card) => (
-                <SurfaceCard
-                  key={card.title}
-                  icon={card.icon}
-                  title={card.title}
-                  description={card.description}
-                  href={card.href}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </header>
@@ -533,10 +478,10 @@ export default function App() {
       <Section
         id="education"
         eyebrow="Education"
-        title="Mathematics training with both theoretical depth and applied finance interest."
-        description="The academic path combines rigorous mathematical foundations with growing focus on quantitative finance, time series analysis, and market-oriented modelling."
+        title="Mathematics first. Finance close behind."
+        description="Rigorous training with a growing focus on quant finance."
       >
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-2">
           {educationItems.map((item) => (
             <DetailCard
               key={item.school}
@@ -552,10 +497,10 @@ export default function App() {
       <Section
         id="experience"
         eyebrow="Experience"
-        title="Early experience across quantitative trading research and independent mathematics research."
-        description="These roles reflect a mix of applied market research and formal mathematical thinking, both of which shape how I approach technical work."
+        title="Research experience in markets and mathematics."
+        description="Quant work, research structure, and technical rigor."
       >
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-2">
           {experienceItems.map((item) => (
             <DetailCard
               key={item.role}
@@ -571,45 +516,41 @@ export default function App() {
       <Section
         id="projects"
         eyebrow="Projects"
-        title="Projects spanning quant research, DeFi, and mathematical finance."
-        description="The project work reflects both technical implementation and mathematical curiosity, from systematic trading research to market design and topological methods for financial data."
+        title="Selected technical work."
+        description="Quant systems, DeFi, and mathematical finance."
       >
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {projectItems.map((project) => (
             <ProjectCard key={project.title} {...project} />
           ))}
         </div>
-        <div className="mt-6 grid gap-5 xl:grid-cols-[0.42fr_0.58fr]">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="mt-8 grid gap-6 xl:grid-cols-[0.42fr_0.58fr]">
+          <div className="rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
             <div>
-              <h3 className="text-xl font-semibold text-slate-950">Persistent Homology PDF Preview</h3>
-              <p className="mt-1 text-sm leading-6 text-slate-600">
-                Visitors can preview the write-up here or open the PDF in a new tab for a closer look.
+              <h3 className="text-2xl font-semibold text-slate-950">Persistent Homology PDF Preview</h3>
+              <p className="mt-2 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
+                Preview the write-up here or open the full PDF.
               </p>
             </div>
-            <div className="mt-6 space-y-4 text-sm leading-7 text-slate-600">
-              <p>
-                This project connects algebraic topology concepts such as Vietoris-Rips filtrations, chain complexes, and barcodes to structure in financial time series.
-              </p>
-              <p>
-                The embedded preview keeps the work visible on-page while still letting readers open the full write-up separately.
-              </p>
+            <div className="mt-6 space-y-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
+              <p>Topology methods applied to financial time series.</p>
+              <p>Useful for readers who want the full write-up without leaving the site immediately.</p>
             </div>
             <a
               href={topologyPdfPath}
               target="_blank"
               rel="noreferrer"
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="mt-7 inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-6 py-4 text-base font-semibold text-white transition hover:bg-slate-800"
             >
               Open full PDF
-              <Icon name="external" size={16} />
+              <Icon name="external" size={18} />
             </a>
           </div>
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
+          <div className="rounded-[2rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-6">
             <iframe
               title="Persistent Homology for Financial Time Series PDF preview"
               src={`${topologyPdfPath}#view=FitH`}
-              className="h-[540px] w-full rounded-[1.5rem] border border-slate-200 lg:h-[620px]"
+              className="h-[620px] w-full rounded-[1.5rem] border border-slate-200 lg:h-[720px]"
             />
           </div>
         </div>
@@ -618,10 +559,10 @@ export default function App() {
       <Section
         id="leadership"
         eyebrow="Leadership"
-        title="Leadership experience centered on organisation, community, and structured thinking."
-        description="Outside technical work, these roles reflect initiative, communication, and the ability to organise people around a shared activity or interest."
+        title="Leadership beyond the classroom."
+        description="Small teams, organisation, and initiative."
       >
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-2">
           {leadershipItems.map((item) => (
             <DetailCard
               key={item.title}
@@ -637,14 +578,14 @@ export default function App() {
       <Section
         id="awards"
         eyebrow="Awards"
-        title="Competition and hackathon results that support the broader story."
-        description="These awards reflect a combination of mathematical ability, modelling strength, and applied execution in competitive settings."
+        title="Selected results."
+        description="Competition and hackathon outcomes."
       >
-        <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-          <ul className="space-y-4">
+        <div className="rounded-[2rem] border border-white/70 bg-white/78 p-9 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-10">
+          <ul className="space-y-5">
             {awardItems.map((item) => (
-              <li key={item} className="flex gap-3 text-sm leading-7 text-slate-600">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-950" />
+              <li key={item} className="flex gap-4 text-base leading-8 text-slate-600 xl:text-lg xl:leading-9">
+                <span className="mt-2.5 h-3 w-3 shrink-0 rounded-full bg-slate-950" />
                 <span>{item}</span>
               </li>
             ))}
@@ -655,14 +596,14 @@ export default function App() {
       <Section
         id="skills"
         eyebrow="Skills"
-        title="Technical tools and subject areas built through coursework, research, and projects."
-        description="The mix here reflects programming ability, quantitative training, research tooling, and familiarity with financial and crypto market structure."
+        title="Core tools and areas."
+        description="Programming, quant methods, and markets."
       >
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {skillGroups.map((group) => (
-            <div key={group.label} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-950">{group.label}</h3>
-              <div className="mt-4 flex flex-wrap gap-3">
+            <div key={group.label} className="rounded-[2rem] border border-white/70 bg-white/78 p-7 shadow-[0_22px_70px_-36px_rgba(15,23,42,0.28)] backdrop-blur-md xl:p-8">
+              <h3 className="text-2xl font-semibold text-slate-950">{group.label}</h3>
+              <div className="mt-5 flex flex-wrap gap-3.5">
                 {group.items.map((item) => (
                   <Pill key={`${group.label}-${item}`}>{item}</Pill>
                 ))}
@@ -675,10 +616,10 @@ export default function App() {
       <Section
         id="links"
         eyebrow="External Links"
-        title="Repositories and contact points in one place."
-        description="The site now points directly to your main profiles, repositories, and contact channels."
+        title="Links that matter."
+        description="Profiles, repos, and contact."
       >
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {externalLinks.map((link) => (
             <ExternalLinkCard key={link.title} {...link} />
           ))}
@@ -688,35 +629,35 @@ export default function App() {
       <Section
         id="contact"
         eyebrow="Contact"
-        title="Open to quantitative research, trading, and mathematically rigorous technical work."
-        description="If the fit is in quant research, quantitative development, market data work, or mathematically driven engineering, I would be glad to connect."
+        title="Open to quant research and technical roles."
+        description="If the fit is strong, reach out."
       >
-        <div className="rounded-[2rem] bg-slate-950 p-8 text-white md:p-10">
-          <p className="max-w-3xl text-base leading-8 text-slate-300">
-            The strongest parts of my profile sit at the intersection of mathematics, finance, and disciplined technical work. This site is meant to make that trajectory easy to see.
+        <div className="rounded-[2rem] bg-[linear-gradient(145deg,#0f172a,#1e293b)] p-9 text-white shadow-[0_30px_90px_-40px_rgba(15,23,42,0.55)] md:p-12">
+          <p className="max-w-4xl text-lg leading-9 text-slate-300 xl:text-xl xl:leading-10">
+            I work best where mathematics, markets, and disciplined engineering meet.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <a
               href="mailto:nickylow2002@gmail.com"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-4 text-base font-semibold text-slate-950 transition hover:bg-slate-200"
             >
               Email me
-              <Icon name="mail" size={18} />
+              <Icon name="mail" size={20} />
             </a>
             <a
               href="https://github.com/XtremeFire02"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 px-7 py-4 text-base font-semibold text-white transition hover:bg-white/10"
             >
               Visit GitHub
-              <Icon name="github" size={18} />
+              <Icon name="github" size={20} />
             </a>
           </div>
         </div>
       </Section>
 
-      <footer className="border-t border-slate-200 bg-white px-6 py-8 text-center text-sm text-slate-500">
+      <footer className="border-t border-white/50 bg-white/40 px-6 py-10 text-center text-base text-slate-500 backdrop-blur-md md:px-8">
         © 2026 Nicholas Low Ying Ting. Personal website.
       </footer>
     </main>
