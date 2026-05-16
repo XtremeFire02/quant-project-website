@@ -97,7 +97,7 @@ const projectItems = [
     stack: 'Python, Time Series, Backtesting',
     description:
       'A modular research stack for crypto signals, regime filters, and backtest diagnostics.',
-    href: 'https://github.com/XtremeFire02/Quantitative-Framework-Version-1',
+    href: 'https://github.com/XtremeFire02/Quantitative-System-Public-',
     cta: 'View repository',
     detailHref: '/quant-signal-research.html',
     detailCta: 'Extra details',
@@ -182,7 +182,7 @@ const externalLinks = [
   {
     title: 'Quant Framework Repo',
     description: 'A research framework showing quantitative modelling and backtesting workflow.',
-    href: 'https://github.com/XtremeFire02/Quantitative-Framework-Version-1',
+    href: 'https://github.com/XtremeFire02/Quantitative-System-Public-',
     icon: 'folder',
     cta: 'Open repository',
   },
